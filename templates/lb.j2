@@ -1,0 +1,16 @@
+upstream backend {
+  server {{ instance1_ip_addr }};
+  server {{ instance2_ip_addr }};
+}
+
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        
+        server_name _;
+
+        location / {
+                proxy_pass http://backend;
+                proxy_http_version 1.1;
+        }
+}

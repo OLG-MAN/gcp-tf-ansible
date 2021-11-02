@@ -1,0 +1,25 @@
+- name: Install nginx configure LB
+  hosts: all
+  remote_user: olegm
+  become: yes
+
+  tasks:
+  - name: Install the nginx package
+    apt: 
+      name: nginx
+      state: latest 
+
+  - name: Start the nginx service
+    service: 
+      name: nginx 
+      state: started
+      
+  - name: Configure LB
+    template:
+      src:  ./templates/lb.j2
+      dest: /etc/nginx/sites-available/default
+  
+  - name: Restarted the nginx service
+    service: 
+      name: nginx 
+      state: restarted

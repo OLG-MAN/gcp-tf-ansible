@@ -1,0 +1,11 @@
+#!/usr/bin/python3
+import subprocess
+import cgi
+
+
+print("content-type: text/html")
+print()
+
+output = subprocess.getoutput("/usr/games/fortune")
+print(output)
+print("<a href='http://{{ instance3_ip_addr }}'>Back to Server Data</a>")

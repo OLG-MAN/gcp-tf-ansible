@@ -1,0 +1,42 @@
+- name: Install Apache
+  hosts: all
+  remote_user: olegm
+  become: yes
+
+  tasks:
+  - name: Install the Apache package
+    apt: 
+      name: apache2
+      state: latest
+
+  - name: Start the Apache service
+    service: 
+      name: apache2
+      state: started
+
+  - name: Enable cgi mod
+    shell: 
+      "sudo a2enmod cgid"
+
+  - name: Install Fortune
+    shell: 
+      "sudo apt install fortune -y"
+      
+  - name: Configure Web Page
+    template:
+      src:  ./templates/index2.j2
+      dest: /var/www/html/index.html
+
+  - name: Configure python cgi
+    template:
+      src:  ./templates/web.j2
+      dest: /usr/lib/cgi-bin/web.py
+  
+  - name: Enable web.py permissions
+    shell: 
+      "sudo chmod 755 /usr/lib/cgi-bin/web.py"
+
+  - name: Restart the Apache service
+    service: 
+      name: apache2
+      state: restarted

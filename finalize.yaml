@@ -1,0 +1,19 @@
+- name: Add Link to LB
+  hosts: all
+  remote_user: olegm
+  become: yes
+
+  tasks:
+  - name: Add button that return to LB IP
+    template:
+      src:  ./templates/finalize.j2
+      dest: /usr/lib/cgi-bin/web.py
+
+  - name: Enable web.py permissions
+    shell: 
+      "sudo chmod 755 /usr/lib/cgi-bin/web.py"
+
+  - name: Restart the Apache service
+    service: 
+      name: apache2
+      state: restarted

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web server Data</title>
+</head>
+<body>
+    <h1>
+    <p>Host name: {{ ansible_hostname }}</p>
+    <p>Server OS name: {{ ansible_os_family }}</p>
+    <p>IP Address of server: {{ ansible_default_ipv4.address }}</p><br>
+    </h1>
+    <form action='http://{{ instance1_ip_addr }}/cgi-bin/web.py'>
+    <center><h2 style="color:black;font-size:21px;">Linux WEB UI</h2></center>
+    <center><h1><input type='submit' value="GET FORTUNE"/></h1></center>
+</body>
+</html>
